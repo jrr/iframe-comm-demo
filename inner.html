@@ -1,0 +1,31 @@
+<script>
+	let eventSource = null;
+window.addEventListener("message", (event) => {
+	console.log("Inside: received message!",event);
+//   if (event.origin !== "http://example.org:8080")
+//     return;
+// console.log("source?",event.source);
+
+	// event.source.postMessage("Hello from iframe", event.origin);
+	eventSource = event.source;
+	// event.source.postMessage("Hello from iframe", '*');
+
+}, false);
+function replyToCaller(){
+	if(eventSource == null){
+		console.log("can't reply until we receive a message");
+		return;
+	}
+	eventSource.postMessage("Hello from iframe!",'*');
+}
+
+// function sendMessageToParent(){
+// 	console.log("sendMessage()");
+// 	i = document.querySelector('iframe');
+// 	i.contentWindow.postMessage("hello from parent",'*');
+// }
+</script>
+<body bgcolor="green"><p>I'm inside!</p></body>
+
+<hr>
+<button onclick="replyToCaller()">Reply to caller</button>

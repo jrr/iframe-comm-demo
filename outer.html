@@ -1,0 +1,17 @@
+<script>
+function sendMessageToIframe(){
+	console.log("Outside: sendMessageToIframe()");
+	i = document.querySelector('iframe');
+	i.contentWindow.postMessage("hello from parent",'*');
+}
+window.addEventListener("message", (event) => {
+	console.log("Outside: received message:",event);
+}, false);
+</script>
+
+<h1>iframe communication</h1>
+
+<p>I'm outside!</p>
+<iframe src="inner.html"></iframe>
+<hr>
+<button onclick="sendMessageToIframe()">Send Message</button>
