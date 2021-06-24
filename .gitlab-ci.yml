@@ -1,0 +1,15 @@
+
+nop:
+  stage: build
+  script:
+    - echo nothing to see here
+
+pages:
+  stage: deploy
+  script:
+    - echo nothing here either, really
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
