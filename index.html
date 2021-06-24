@@ -17,39 +17,57 @@
       },
       false
     );
+    let iframeUrls = {
+      local: "iframe.html",
+      github: "https://jrr.github.io/iframe-comm-demo/iframe.html",
+      gitlab: "https://john-ruble.gitlab.io/iframe-comm-demo/iframe.html",
+    };
+    function renderIframe(which) {
+      var iframe = document.createElement("iframe");
+      iframe.src = iframeUrls[which];
+      let iframeHolder = document.getElementById("iframe-goes-here");
+      iframeHolder.innerHTML = "";
+      iframeHolder.appendChild(iframe);
+    }
   </script>
 
   <body>
     <h1>iframe communication</h1>
     <p>
-      This is a demo of communication across an iframe. For demonstration
-      purposes it's hosted at two different places:
+      This is a demo of communication across an iframe boundary. For
+      demonstration purposes it's hosted at two different places:
     </p>
     <ul>
       <li>https://jrr.github.io/iframe-comm-demo/</li>
       <li>https://john-ruble.gitlab.io/iframe-comm-demo/</li>
     </ul>
-    <center>
-      <table width="100%" height="50%" border="1">
-        <thead>
-          <th>Outside</th>
-          <th>Iframe</th>
-        </thead>
-        <tr>
-          <td width="50%">
-            <p id="page-id"></p>
-            <button onclick="sendMessageToIframe()">
-              Send Message To Iframe
-            </button>
-            <hr />
-            <pre id="message-buffer" />
-          </td>
-          <td width="50%">
-            <iframe src="iframe.html" width="100%" height="100%"></iframe>
-          </td>
-        </tr>
-      </table>
-    </center>
+
+    <div>
+      Render iframe:
+      <button onclick="renderIframe('local')">local</button>
+      <button onclick="renderIframe('github')">github</button>
+      <button onclick="renderIframe('gitlab')">gitlab</button>
+    </div>
+
+    <br />
+
+    <table width="100%" height="50%" border="1">
+      <thead>
+        <th>Outside</th>
+        <th>Iframe</th>
+      </thead>
+      <tr>
+        <td width="50%">
+          <p id="page-id"></p>
+          <button onclick="sendMessageToIframe()">
+            Send Message To Iframe
+          </button>
+          <hr />
+          <pre id="message-buffer" />
+        </td>
+        <td width="50%" id="iframe-goes-here">(iframe goes here)</td>
+      </tr>
+    </table>
 
     <script>
       document.getElementById("page-id").innerText = `(${document.URL})`;
