@@ -8,6 +8,7 @@ pages:
   script:
     - mkdir public
     - mv *.html public/
+    - mv *.css public/
   artifacts:
     paths:
       - public
