@@ -1,4 +1,3 @@
-
 nop:
   stage: build
   script:
@@ -7,7 +6,8 @@ nop:
 pages:
   stage: deploy
   script:
-    - echo nothing here either, really
+    - mkdir public
+    - mv *.html public/
   artifacts:
     paths:
       - public
