@@ -12,7 +12,9 @@
     window.addEventListener(
       "message",
       (event) => {
-        console.log("Outside: received message:", event);
+        console.log("Received event:");
+        console.log(`event.source.document.URL=${event.source.document.URL}`);
+        console.log(`origin=${event.origin}`);
         document.getElementById("message-buffer").append(event.data + "\n");
       },
       false
