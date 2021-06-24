@@ -1,0 +1,12 @@
+body {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  vertical-align: top;
+}

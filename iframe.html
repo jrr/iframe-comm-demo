@@ -1,10 +1,13 @@
 <html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
   <script>
     window.addEventListener(
       "message",
       (event) => {
         console.log("Inside: received message!", event);
-        document.querySelector("#message-buffer").append(event.data + "\n");
+        document.getElementById("message-buffer").append(event.data + "\n");
       },
       false
     );
@@ -14,12 +17,21 @@
     }
   </script>
 
-  <body bgcolor="white">
-    <p>I'm inside!</p>
+  <body>
+    <p id="page-id"></p>
+
+    <a href="https://jrr.github.io/iframe-comm-demo/iframe.html">github</a>
+    <a href="https://john-ruble.gitlab.io/iframe-comm-demo/iframe.html"
+      >gitlab</a
+    >
 
     <button onclick="sendMessageToParent()">Send message to parent</button>
     <hr />
 
     <pre id="message-buffer" />
+
+    <script>
+      document.getElementById("page-id").innerText = `(${document.URL})`;
+    </script>
   </body>
 </html>
