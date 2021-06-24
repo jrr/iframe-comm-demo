@@ -13,7 +13,11 @@
       "message",
       (event) => {
         console.log("Received event:");
-        console.log(`event.source.document.URL=${event.source.document.URL}`);
+        try {
+          console.log(`event.source.document.URL=${event.source.document.URL}`);
+        } catch (e) {
+          console.log(e);
+        }
         console.log(`origin=${event.origin}`);
         document.getElementById("message-buffer").append(event.data + "\n");
       },
