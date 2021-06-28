@@ -4,25 +4,29 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <script>
-    function sendMessageToIframe() {
-      console.log("Outside: sendMessageToIframe()");
-      i = document.querySelector("iframe");
-      i.contentWindow.postMessage("hello from parent", "*");
-    }
     window.addEventListener(
       "message",
       (event) => {
-        console.log("Received event:");
-        try {
-          console.log(`event.source.document.URL=${event.source.document.URL}`);
-        } catch (e) {
-          console.log(e);
-        }
-        console.log(`origin=${event.origin}`);
+        console.log("Parent received event:", {
+          data: event.data,
+          origin: event.origin,
+        });
+        // try {
+        //   // cannot access document from a cross-origin message
+        //   console.log(`event.source.document.URL=${event.source.document.URL}`);
+        // } catch (e) {
+        //   console.log(e);
+        // }
         document.getElementById("message-buffer").append(event.data + "\n");
       },
       false
     );
+
+    function sendMessageToIframe() {
+      i = document.querySelector("iframe");
+      i.contentWindow.postMessage("hello from parent", "*");
+    }
+
     let iframeUrls = {
       local: "iframe.html",
       github: "https://jrr.github.io/iframe-comm-demo/iframe.html",
