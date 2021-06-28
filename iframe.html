@@ -57,8 +57,20 @@
 
     <br />
 
-    <button onclick="sendMessageToParent()">Send message to parent</button>
+    <div>
+      Validate Incoming Messages:
+      <input type="checkbox" id="validate-message" name="validate-message" />
+    </div>
 
+    <br />
+
+    <button onclick="sendMessageToParent('hello from iframe!')">
+      Send 'hello' to parent
+    </button>
+
+    <button onclick="sendMessageToParent('SD(GF*&SRFDG')">
+      Send 'SD(GF*&SRFDG' to parent
+    </button>
     <hr />
 
     <pre id="message-buffer" />

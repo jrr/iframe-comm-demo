@@ -117,10 +117,23 @@
 
           <br />
 
-          <button onclick="sendMessageToIframe()">
-            Send message to iframe
-          </button>
+          <div>
+            Validate Incoming Messages:
+            <input
+              type="checkbox"
+              id="validate-message"
+              name="validate-message"
+            />
+          </div>
 
+          <br />
+
+          <button onclick="sendMessageToIframe('hello from parent')">
+            Send 'hello' to iframe
+          </button>
+          <button onclick="sendMessageToIframe('J@K#L$J@#KL$')">
+            Send 'J@K#L$J@#KL$' to iframe
+          </button>
           <hr />
 
           <pre id="message-buffer" />

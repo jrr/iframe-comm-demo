@@ -6,17 +6,17 @@ let targets = {
 
 let targetSelector = "input[name='restrict-target']:checked";
 
-function sendMessageToIframe() {
+function sendMessageToIframe(message) {
   const targetRestriction =
     targets[document.querySelector(targetSelector).value];
   i = document.querySelector("iframe");
-  i.contentWindow.postMessage("hello from parent", targetRestriction);
+  i.contentWindow.postMessage(message, targetRestriction);
 }
 
-function sendMessageToParent() {
+function sendMessageToParent(message) {
   const targetRestriction =
     targets[document.querySelector(targetSelector).value];
-  window.parent.postMessage("Hello from iframe!", targetRestriction);
+  window.parent.postMessage(message, targetRestriction);
 }
 
 let originSelector = "input[name='restrict-origin']:checked";
@@ -32,7 +32,14 @@ function handleIncomingMessage(event) {
     return;
   }
 
-  // todo: validate message content
+  const validateContent = document.querySelector(
+    "input#validate-message"
+  ).checked;
+
+  if (validateContent && !validMessage(event.data)) {
+    console.error(`Rejecting invalid message`);
+    return;
+  }
 
   // try {
   //   // cannot access document from a cross-origin message
@@ -41,4 +48,8 @@ function handleIncomingMessage(event) {
   //   console.log(e);
   // }
   document.getElementById("message-buffer").append(event.data + "\n");
+}
+
+function validMessage(message) {
+  return message.includes("hello");
 }
