@@ -23,20 +23,35 @@
       false
     );
 
+    let targets = {
+      unrestricted: "*",
+      gitlab: "https://john-ruble.gitlab.io/",
+      github: "https://jrr.github.io/",
+    };
+
     function sendMessageToParent() {
-      window.parent.postMessage("Hello from iframe!", "*");
+      const target = targets[document.querySelector("input:checked").value];
+      window.parent.postMessage("Hello from iframe!", target);
     }
   </script>
 
   <body>
     <p id="page-id"></p>
 
-    <a href="https://jrr.github.io/iframe-comm-demo/iframe.html">github</a>
-    <a href="https://john-ruble.gitlab.io/iframe-comm-demo/iframe.html"
-      >gitlab</a
-    >
+    <div>
+      Restrict target to:
+      <input type="radio" id="star" name="drone" value="unrestricted" checked />
+      * &nbsp; &nbsp;
+      <input type="radio" id="gitlab" name="drone" value="gitlab" />
+      GitLab &nbsp; &nbsp;
+      <input type="radio" id="github" name="drone" value="github" />
+      GitHub
+    </div>
+
+    <br />
 
     <button onclick="sendMessageToParent()">Send message to parent</button>
+
     <hr />
 
     <pre id="message-buffer" />

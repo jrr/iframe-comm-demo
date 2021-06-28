@@ -22,9 +22,16 @@
       false
     );
 
+    let targets = {
+      unrestricted: "*",
+      gitlab: "https://john-ruble.gitlab.io/",
+      github: "https://jrr.github.io/",
+    };
+
     function sendMessageToIframe() {
+      const target = targets[document.querySelector("input:checked").value];
       i = document.querySelector("iframe");
-      i.contentWindow.postMessage("hello from parent", "*");
+      i.contentWindow.postMessage("hello from parent", target);
     }
 
     let iframeUrls = {
@@ -32,6 +39,7 @@
       github: "https://jrr.github.io/iframe-comm-demo/iframe.html",
       gitlab: "https://john-ruble.gitlab.io/iframe-comm-demo/iframe.html",
     };
+
     function renderIframe(which) {
       var iframe = document.createElement("iframe");
       iframe.src = iframeUrls[which];
@@ -69,10 +77,31 @@
       <tr>
         <td width="50%">
           <p id="page-id"></p>
+
+          <div>
+            Restrict target to:
+            <input
+              type="radio"
+              id="star"
+              name="drone"
+              value="unrestricted"
+              checked
+            />
+            * &nbsp; &nbsp;
+            <input type="radio" id="gitlab" name="drone" value="gitlab" />
+            GitLab &nbsp; &nbsp;
+            <input type="radio" id="github" name="drone" value="github" />
+            GitHub
+          </div>
+
+          <br />
+
           <button onclick="sendMessageToIframe()">
-            Send Message To Iframe
+            Send message to iframe
           </button>
+
           <hr />
+
           <pre id="message-buffer" />
         </td>
         <td width="50%" id="iframe-goes-here">(iframe goes here)</td>
