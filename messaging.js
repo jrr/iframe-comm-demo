@@ -1,7 +1,7 @@
 let targets = {
   unrestricted: "*",
-  gitlab: "https://john-ruble.gitlab.io/",
-  github: "https://jrr.github.io/",
+  gitlab: "https://john-ruble.gitlab.io",
+  github: "https://jrr.github.io",
 };
 
 let targetSelector = "input[name='restrict-target']:checked";
@@ -26,9 +26,11 @@ function handleIncomingMessage(event) {
 
   if (
     (originRestriction == "gitlab" && event.origin != targets["gitlab"]) ||
-    (originRestriction == "github" && event.origin != targets["gitlab"])
+    (originRestriction == "github" && event.origin != targets["github"])
   ) {
-    console.error(`Rejecting message from unexpected origin ${event.origin}`);
+    console.error(
+      `Rejecting message from unexpected origin ${event.origin} (expected ${targets[originRestriction]})`
+    );
     return;
   }
 
