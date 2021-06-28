@@ -3,6 +3,7 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="style.css" />
   </head>
+  <script src="messaging.js"></script>
   <script>
     window.addEventListener(
       "message",
@@ -11,28 +12,10 @@
           data: event.data,
           origin: event.origin,
         });
-        // try {
-        //   // cannot access document from a cross-origin message
-        //   console.log(`event.source.document.URL=${event.source.document.URL}`);
-        // } catch (e) {
-        //   console.log(e);
-        // }
-        document.getElementById("message-buffer").append(event.data + "\n");
+        handleIncomingMessage(event);
       },
       false
     );
-
-    let targets = {
-      unrestricted: "*",
-      gitlab: "https://john-ruble.gitlab.io/",
-      github: "https://jrr.github.io/",
-    };
-
-    function sendMessageToIframe() {
-      const target = targets[document.querySelector("input:checked").value];
-      i = document.querySelector("iframe");
-      i.contentWindow.postMessage("hello from parent", target);
-    }
 
     let iframeUrls = {
       local: "iframe.html",
@@ -77,20 +60,58 @@
       <tr>
         <td width="50%">
           <p id="page-id"></p>
-
           <div>
             Restrict target to:
             <input
               type="radio"
               id="star"
-              name="drone"
+              name="restrict-target"
               value="unrestricted"
               checked
             />
             * &nbsp; &nbsp;
-            <input type="radio" id="gitlab" name="drone" value="gitlab" />
+            <input
+              type="radio"
+              id="gitlab"
+              name="restrict-target"
+              value="gitlab"
+            />
             GitLab &nbsp; &nbsp;
-            <input type="radio" id="github" name="drone" value="github" />
+            <input
+              type="radio"
+              id="github"
+              name="restrict-target"
+              value="github"
+            />
+            GitHub
+          </div>
+
+          <br />
+
+          <div>
+            Restrict origin to:
+
+            <input
+              type="radio"
+              id="star"
+              name="restrict-origin"
+              value="unrestricted"
+              checked
+            />
+            (unrestricted) &nbsp; &nbsp;
+            <input
+              type="radio"
+              id="gitlab"
+              name="restrict-origin"
+              value="gitlab"
+            />
+            GitLab &nbsp; &nbsp;
+            <input
+              type="radio"
+              id="github"
+              name="restrict-origin"
+              value="github"
+            />
             GitHub
           </div>
 
